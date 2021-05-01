@@ -1,5 +1,6 @@
 import Slide from './slide.js';
 
-const slider = new Slide('.slide-wrapper', '.slide-wrapper_holder')
+const slider = new Slide('.slide-wrapper_holder', '.slide-wrapper')
 slider.init()
+
 console.log(slider)
