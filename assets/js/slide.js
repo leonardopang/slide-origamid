@@ -17,7 +17,7 @@ export default class Slide {
 
   onStart(event) {
     let movetype;
-    if( event.type == 'mousedown' ){
+    if( event.type === 'mousedown' ){
       event.preventDefault();
       this.dist.startX = event.clientX;
       movetype = 'mousemove'
