@@ -5,13 +5,16 @@
 }
 
 img{
-  display: inline-block;
+  display: block;
   max-width: 100%;
+}
+
+.slide-wrapper{
+  overflow: hidden;
 }
 
 .slide-wrapper_holder {
   display: flex;
-  overflow: hidden;
 }
 
 .slider-wrapper--item{
