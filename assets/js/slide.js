@@ -20,23 +20,22 @@ export default class Slide {
     if( event.type === 'mousedown' ){
       event.preventDefault();
       this.dist.startX = event.clientX;
-      movetype = 'mousemove'
-    }else{
+      movetype = 'mousemove';
+    } else {
       this.dist.startX = event.changedTouches[0].clientX;
-      movetype = 'touchmove'
+      movetype = 'touchmove';
     }
-    this.dist.startX = event.clientX;
     this.wrapper.addEventListener(movetype, this.onMove);
   }
 
   onMove(event) {
-    const pointerPosition = (event.type === 'mousemove') ? event.clientX : event.changedTouches[0].clientX
+    const pointerPosition = (event.type === 'mousemove') ? event.clientX : event.changedTouches[0].clientX;
     const finalPosition = this.updatePosition(pointerPosition);
     this.moveSlide(finalPosition);
   }
 
   onEnd(event) {
-    const movetype = (event.type === 'mouseup') ? 'mousemove' : 'touchmove'
+    const movetype = (event.type === 'mouseup') ? 'mousemove' : 'touchmove';
     this.wrapper.removeEventListener(movetype, this.onMove);
     this.dist.finalPosition = this.dist.movePosition;
   }
@@ -52,6 +51,36 @@ export default class Slide {
     this.onStart = this.onStart.bind(this);
     this.onMove = this.onMove.bind(this);
     this.onEnd = this.onEnd.bind(this);
+  }
+
+  //Slide Config
+
+  slidePosition(slide){
+    const margin = ( this.wrapper.offsetWidth - slide.offsetWidth ) / 2
+    return -( slide.offsetLeft - margin )
+  }
+
+  slidesConfig(){
+    this.slideArray = [...this.slide.children].map((element) =>{
+      const position = this.slidePosition(element)
+      return{ position, element }
+    })
+  }
+
+  slideIndexNav(index){
+    const last = this.slideArray.length - 1
+    this.index = {
+      prev: index ? index -1 : undefined,
+      active: index,
+      next: index === last ? undefined : index + 1,
+    }
+  }
+
+  changeSlide(index){
+    const activeSlide = this.slideArray[index]
+    this.moveSlide(activeSlide.position)
+    this.moveSlide(this.slideArray[index].position)
+    this.dist.finalPosition = activeSlide.position
   }
 
   init() {
