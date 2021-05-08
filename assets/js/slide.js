@@ -66,13 +66,11 @@ export default class Slide {
     this.wrapper.addEventListener('touchend', this.onEnd);
   }
 
-  
-
   // Slides config
 
   slidePosition(slide) {
     const margin = (this.wrapper.offsetWidth - slide.offsetWidth) / 2;
-    return -(slide.offsetLeft - margin);
+    return -(slide.offsetLeft + margin);
   }
 
   slidesConfig() {
